@@ -1,0 +1,22 @@
+FROM bitnami/spark:latest
+
+USER root
+RUN apt-get update && \
+    apt-get install -y curl && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /usr/src/app
+
+RUN mkdir -p /usr/src/app/jars
+
+RUN curl -o /usr/src/app/jars/kafka-clients-3.4.0.jar https://repo1.maven.org/maven2/org/apache/kafka/kafka-clients/3.4.0/kafka-clients-3.4.0.jar \
+    && curl -o /usr/src/app/jars/spark-sql-kafka-0-10_2.12-3.3.0.jar https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.3.0/spark-sql-kafka-0-10_2.12-3.3.0.jar \
+    && curl -o /usr/src/app/jars/spark-streaming-kafka-0-10-assembly_2.12-3.3.0.jar https://repo1.maven.org/maven2/org/apache/spark/spark-streaming-kafka-0-10-assembly_2.12/3.3.0/spark-streaming-kafka-0-10-assembly_2.12-3.3.0.jar \
+    && curl -o /usr/src/app/jars/commons-pool2-2.11.1.jar https://repo1.maven.org/maven2/org/apache/commons/commons-pool2/2.11.1/commons-pool2-2.11.1.jar \
+    && curl -o /usr/src/app/jars/spark-cassandra-connector_2.12-3.3.0.jar https://repo1.maven.org/maven2/com/datastax/spark/spark-cassandra-connector_2.12/3.3.0/spark-cassandra-connector_2.12-3.3.0.jar \
+    && curl -o /usr/src/app/jars/jsr166e-1.1.0.jar https://repo1.maven.org/maven2/com/twitter/jsr166e/1.1.0/jsr166e-1.1.0.jar \
+    && curl -o /usr/src/app/jars/spark-cassandra-connector-assembly_2.12-3.3.0.jar https://repo1.maven.org/maven2/com/datastax/spark/spark-cassandra-connector-assembly_2.12/3.3.0/spark-cassandra-connector-assembly_2.12-3.3.0.jar
+
+COPY consumer.py .
+
+CMD ["spark-submit", "--jars", "jars/kafka-clients-3.4.0.jar,jars/spark-sql-kafka-0-10_2.12-3.3.0.jar,jars/spark-streaming-kafka-0-10-assembly_2.12-3.3.0.jar,jars/commons-pool2-2.11.1.jar,jars/spark-cassandra-connector_2.12-3.3.0.jar,jars/jsr166e-1.1.0.jar,jars/spark-cassandra-connector-assembly_2.12-3.3.0.jar", "consumer.py"]
