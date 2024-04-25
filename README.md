@@ -1,5 +1,7 @@
 # Real-Time Sales Data Pipeline with Kafka, Spark, Cassandra, and Redash
 
+![0](images/image5.png)
+
 This repository provides a real-time sales data pipeline that ingests, processes, and stores sales data using Kafka, Spark, Cassandra, and Redash. It offers a comprehensive solution for streaming data analysis and visualization.
 
 ## Getting Started:
