@@ -44,6 +44,7 @@ python api_pos_2.py &  # Run in background (optional for more data)
 
 ### 1. Data Generation (Optional):
 * The api-pos scripts (if run) generate synthetic sales data.
+![1](images/image1.png) 
 ### 2. Data Ingestion:
 * The generated data is sent to the FastAPI service using POST requests.
 ### 3. Data Processing by FastAPI:
@@ -55,5 +56,8 @@ python api_pos_2.py &  # Run in background (optional for more data)
 * The data is processed (data transformations).
 ### 6. Data Storage in Cassandra:
 * The processed data is saved to the Cassandra table (sales_data).
+![2](images/image2.png)
 ### 7. Data Visualization with Redash:
 * Redash dashboards can be created to visualize the real-time sales data stored in Cassandra.
+![3](images/image3.png)
+![4](images/image4.png) 
